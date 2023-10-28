@@ -26,9 +26,9 @@ mongoose
   .catch((err) => console.log(err));
 
 // router
-const userRouter = require('./api/routes/user.router');
-const listRouter = require('./api/routes/list.router');
-const commentRouter = require('./api/routes/comment.router');
+const userRouter = require('./routes/user.router');
+const listRouter = require('./routes/list.router');
+const commentRouter = require('./routes/comment.router');
 //
 app.use('/api/user', userRouter);
 app.use('/api/list', listRouter);
