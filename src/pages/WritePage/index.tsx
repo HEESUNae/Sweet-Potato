@@ -32,17 +32,16 @@ const WritePage = () => {
   const onSubmitCreate = async (data) => {
     const addImgData = {
       ...data,
-      image: `https://github.com/HEESUNae/React-SweetPotato/blob/main/src/assets/img/img-${selectImage}.jpg?raw=true`,
+      image: `https://github.com/HEESUNae/Sweet-Potato/blob/main/src/assets/img/img-${selectImage}.jpg?raw=true`,
     };
     try {
       const res = await createList(addImgData);
       if (res.status === 200) {
         alert('글 등록이 완료되었습니다.');
-        // navigation('/main');
+        navigation('/main');
       }
     } catch (e) {
       console.log('실페', e);
-      // res. !== 'ECONNABORTED'
       console.log(e);
     }
   };
@@ -51,11 +50,10 @@ const WritePage = () => {
   const onSubmitEdit = async (data) => {
     const addImgData = {
       ...data,
-      image: `https://github.com/HEESUNae/React-SweetPotato/blob/main/src/assets/img/img-${selectImage}.jpg?raw=true`,
+      image: `https://github.com/HEESUNae/Sweet-Potato/blob/main/src/assets/img/img-${selectImage}.jpg?raw=true`,
     };
     try {
-      const res = await updateList(data, addImgData);
-
+      const res = await updateList(addImgData, editPrev);
       if (res.status === 200) {
         alert('글 수정이 완료되었습니다.');
         navigation('/main');

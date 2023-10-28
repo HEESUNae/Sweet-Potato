@@ -1,7 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const StyledMainPage = styled.div`
+export const StyledMainPage = styled.div<{ $loading: boolean }>`
   background-size: cover;
+  .visual {
+    display: grid;
+    grid-template-rows: 86px 1fr;
+    height: calc(100vh - 55px);
+  }
   .user-info {
     padding: 2rem;
     position: relative;
@@ -25,6 +30,14 @@ export const StyledMainPage = styled.div`
   }
   .list-container {
     padding: 0 2rem;
+    ${(props) =>
+      props.$loading &&
+      css`
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `}
   }
   .card-container {
     padding: 2rem 0;

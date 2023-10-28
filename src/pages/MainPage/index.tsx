@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Comment } from 'react-loader-spinner';
 import { StyledMainPage } from './style';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userAtomInfo } from '../../atom/userAtom';
 import { listAtom } from '../../atom/listAtom';
 
 import useCommon from '../../hooks/useCommon';
-import useList from '../../hooks/useList';
 
 import Layout from '../../containers/Layout';
 import PrimaryBtn from '../../components/button/PrimaryBtn';
@@ -16,21 +16,21 @@ const MainPage = () => {
   const { navigation } = useCommon();
   const loginUser = useRecoilValue(userAtomInfo);
   const [listData, setListData] = useRecoilState(listAtom);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 리스트 read
   const getListData = async () => {
-    axiosApi
-      .get('/list', { timeout: 5000 })
-      .then((res) => {
+    try {
+      setIsLoading(true);
+      const res = await axiosApi.get('/list');
+      if (res) {
         setListData(res.data.reverse());
-      })
-      .catch((error) => {
-        if (error.code === 'ECONNABORTED') {
-          console.log('요청이 타임아웃되었습니다.');
-        } else {
-          console.error('요청 실패:', error);
-        }
-      });
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const MainPage = () => {
 
   return (
     <Layout>
-      <StyledMainPage>
+      <StyledMainPage $loading={isLoading}>
         <section className="visual">
           <div className="user-info">
             <div className="user-welcome">
@@ -51,13 +51,26 @@ const MainPage = () => {
             <PrimaryBtn title="글쓰기" onClick={() => navigation('/write')} />
           </div>
           <div className="list-container">
-            <div className="card-container">
-              {listData.map((list) => (
-                <div key={list._id}>
-                  <Card list={list} />
-                </div>
-              ))}
-            </div>
+            {isLoading ? (
+              <Comment
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="comment-loading"
+                wrapperStyle={{}}
+                wrapperClass="comment-wrapper"
+                color="#fff"
+                backgroundColor="#ed7d31"
+              />
+            ) : (
+              <div className="card-container">
+                {listData.map((list) => (
+                  <div key={list._id}>
+                    <Card list={list} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </StyledMainPage>
