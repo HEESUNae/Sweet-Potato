@@ -16,7 +16,7 @@ const useList = () => {
       date: new Date(Date.now() - offset).toISOString(),
     };
 
-    return await axiosApi.post('/list', addPost);
+    return await axiosApi.post('/api/list', addPost);
   };
 
   // 리스트 수정
@@ -29,12 +29,12 @@ const useList = () => {
       author: data.checked ? '익명의 고구마' : userInfo.userName,
       date: new Date(Date.now() - offset).toISOString(),
     };
-    return await axiosApi.put('/list', updatePost);
+    return await axiosApi.put('/api/list', updatePost);
   };
 
   // 리스트 삭제
   const deleteList = async (listId) => {
-    return await axiosApi.delete('/list', listId);
+    return await axiosApi.delete('/api/list', listId);
   };
 
   return {

@@ -15,17 +15,17 @@ const useComment = () => {
       author: userInfo.userName,
       date: new Date(Date.now() - offset).toISOString(),
     };
-    return await axiosApi.post('/comment/add', addComment);
+    return await axiosApi.post('/api/comment/add', addComment);
   };
 
   // 댓글 매핑
   const readComment = async (postId) => {
-    return await axiosApi.post('/comment', { postId: postId });
+    return await axiosApi.post('/api/comment', { postId: postId });
   };
 
   // 댓글 삭제
   const deleteComment = async (listId) => {
-    return await axiosApi.delete('/comment', listId);
+    return await axiosApi.delete('/api/comment', listId);
   };
 
   return {

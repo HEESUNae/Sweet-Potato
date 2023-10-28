@@ -26,13 +26,13 @@ mongoose
   .catch((err) => console.log(err));
 
 // router
-const userRouter = require('./server/routes/user.router');
-const listRouter = require('./server/routes/list.router');
-const commentRouter = require('./server/routes/comment.router');
-
-app.use('/user', userRouter);
-app.use('/list', listRouter);
-app.use('/comment', commentRouter);
+const userRouter = require('./api/routes/user.router');
+const listRouter = require('./api/routes/list.router');
+const commentRouter = require('./api/routes/comment.router');
+//
+app.use('/api/user', userRouter);
+app.use('/api/list', listRouter);
+app.use('/api/comment', commentRouter);
 
 app.listen(port, (req, res) => {
   console.log('server start' + port);

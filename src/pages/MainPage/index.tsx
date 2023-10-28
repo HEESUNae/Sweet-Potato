@@ -22,7 +22,7 @@ const MainPage = () => {
   const getListData = async () => {
     try {
       setIsLoading(true);
-      const res = await axiosApi.get('/list');
+      const res = await axiosApi.get('/api/list');
       if (res) {
         setListData(res.data.reverse());
       }
