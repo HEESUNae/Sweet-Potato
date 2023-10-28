@@ -1,12 +1,4 @@
-const bcrypt = require('bcrypt');
 const userModel = require('../models/user.model');
-
-// 비밀번호 해싱
-const hashedPassword = async (password) => {
-  const saltRounds = 10;
-  const salt = await bcrypt.genSalt(saltRounds);
-  return await bcrypt.hash(password, salt);
-};
 
 //* CREATE (회원가입)
 const createUser = async (req, res, next) => {
@@ -14,8 +6,6 @@ const createUser = async (req, res, next) => {
     const getUser = await userModel.findOne({ userId: req.body.userId });
     if (!getUser) {
       const createUser = await userModel.create(req.body);
-      const encryptedPassword = await hashedPassword(req.body.userPw);
-      createUser.userPw = encryptedPassword;
       res.status(201).json(createUser);
     } else {
       res.sendStatus(404);
