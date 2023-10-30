@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <Logo onClick={() => navigation('/')} />
-      <TextBtn title="로그아웃" onClick={() => alert('작업 예정입니다.')} />
+      <TextBtn title="로그아웃" onClick={() => navigation('/')} />
     </StyledHeader>
   );
 };
